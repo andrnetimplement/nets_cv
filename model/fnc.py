@@ -13,6 +13,17 @@ class FNC8s(nn.Module):
         self.conv3 = nn.Conv2d(4096, num_classes, kernel_size=1)
 
         self.deconv1 = nn.ConvTranspose2d(num_classes, num_classes, kernel_size=4, stride=2, padding=1)
-        self.deconv1 = nn.ConvTranspose2d(num_classes, num_classes, kernel_size=16, stride=8, padding=4)
+        self.deconv2 = nn.ConvTranspose2d(num_classes, num_classes, kernel_size=16, stride=8, padding=4)
 
+    def forward(self, x):
+
+        x = self.features(x)
+        x = self.conv1(x)
+        x = self.conv2(x)
+        x = self.conv3(x)
+
+        x = self.deconv1(x)
+        x = self.deconv2(x)
         
+        return x
+
